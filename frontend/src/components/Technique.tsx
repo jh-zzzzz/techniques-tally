@@ -8,14 +8,12 @@ export const Technique = () => {
 
   const getOccurences = async () => {
     try {
-      console.log("fetching...");
       const resp = await fetch("localhost:1337"); // TO DO
       const { data } = await resp.json();
       setOccurences(data);
       console.log(data);
-      console.log("tjabba");
     } catch (err: any) {
-      console.log("failed to fetch");
+      console.log("failed to fetch"); // TO DO
     }
   };
 
