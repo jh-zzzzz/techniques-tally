@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const TechniquesTable = () => {
   return (
     <>
@@ -10,11 +12,15 @@ export const TechniquesTable = () => {
         </thead>
         <tbody>
           <tr>
-            <td>Nutmeg</td>
+            <td>
+              <Link to="football/techniques/nutmeg">Nutmeg</Link>
+            </td>
             <td>1</td>
           </tr>
           <tr>
-            <td>Step over</td>
+            <td>
+              <Link to="football/techniques/step-over">Step over</Link>
+            </td>
             <td>1</td>
           </tr>
         </tbody>
