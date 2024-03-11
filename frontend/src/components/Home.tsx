@@ -1,26 +1,27 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { TechniquesTable } from "./TechniquesTable";
 
-export const Home = () => {
-  const [sport, setSport] = useState<string>("");
-  const [sports, setSports] = useState<string[]>([]);
+type HomeProps = {
+  sports: string[];
+  sport: string;
+  setSport: Dispatch<SetStateAction<string>>;
+};
 
+export const Home = ({ sports, sport, setSport }: HomeProps) => {
   const handleOnChange = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     setSport(e.currentTarget.value);
   };
 
-  const fetchOnRender = async () => {
-    await fetch("http://localhost:1523/api/sports")
-      .then((resp) => resp.json())
-      .then((json) => setSports(json));
-    console.log("howdy");
-    setSport(sports[0].toLowerCase());
-  };
-
-  useEffect(() => {
-    fetchOnRender();
-  }, []);
+  //   useEffect(() => {
+  //     setSport(sports[0]);
+  //   }, []);
 
   return (
     <>
