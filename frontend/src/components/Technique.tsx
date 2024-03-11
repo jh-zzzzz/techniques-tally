@@ -13,7 +13,6 @@ export const Technique = () => {
       );
       const { data } = await resp.json();
       setOccurences(data);
-      console.log(data);
     } catch (err: any) {
       console.log("failed to fetch"); // TO DO
     }

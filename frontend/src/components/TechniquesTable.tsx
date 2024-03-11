@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 
-export const TechniquesTable = () => {
+type TechniquesTableProps = {
+  sport: string;
+};
+
+export const TechniquesTable = ({ sport }: TechniquesTableProps) => {
   return (
     <>
       <table>
@@ -13,13 +17,13 @@ export const TechniquesTable = () => {
         <tbody>
           <tr>
             <td>
-              <Link to="football/techniques/nutmeg">Nutmeg</Link>
+              <Link to={`${sport}/techniques/nutmeg`}>Nutmeg</Link>
             </td>
             <td>1</td>
           </tr>
           <tr>
             <td>
-              <Link to="football/techniques/step-over">Step over</Link>
+              <Link to={`${sport}/techniques/step-over`}>Step over</Link>
             </td>
             <td>1</td>
           </tr>
