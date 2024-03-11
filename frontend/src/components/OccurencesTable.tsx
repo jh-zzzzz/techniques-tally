@@ -1,4 +1,4 @@
-export type Occurence = {
+export type Occurrence = {
   id: string;
   date: string;
   athlete: string;
@@ -7,11 +7,11 @@ export type Occurence = {
   video_link: string;
 };
 
-type OccurenceTableProps = {
-  occurences: Occurence[];
+type OccurrenceTableProps = {
+  occurences: Occurrence[];
 };
 
-export const OccurencesTable = ({ occurences }: OccurenceTableProps) => {
+export const OccurencesTable = ({ occurences }: OccurrenceTableProps) => {
   return (
     <>
       <table>
@@ -26,7 +26,7 @@ export const OccurencesTable = ({ occurences }: OccurenceTableProps) => {
         </thead>
         <tbody>
           {occurences.map((occurence) => (
-            <tr className="occurence" key={occurence.id}>
+            <tr className="occurrence" key={occurence.id}>
               <td>{occurence.date}</td>
               <td>{occurence.athlete}</td>
               <td>{occurence.game}</td>

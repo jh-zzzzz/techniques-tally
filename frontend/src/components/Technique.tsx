@@ -1,14 +1,16 @@
 import { useParams } from "react-router-dom";
-import { Occurence, OccurencesTable } from "./OccurencesTable";
+import { Occurrence, OccurencesTable } from "./OccurencesTable";
 import { useEffect, useState } from "react";
 
 export const Technique = () => {
   const params = useParams();
-  const [occurences, setOccurences] = useState<Occurence[]>([]);
+  const [occurences, setOccurences] = useState<Occurrence[]>([]);
 
   const getOccurences = async () => {
     try {
-      const resp = await fetch("localhost:1337"); // TO DO
+      const resp = await fetch(
+        `http://localhost:1523/api/${params.sport}/${params.technique}/occurrences`,
+      );
       const { data } = await resp.json();
       setOccurences(data);
       console.log(data);

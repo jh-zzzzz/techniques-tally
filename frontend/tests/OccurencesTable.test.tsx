@@ -1,10 +1,10 @@
 import { render, waitFor } from "@testing-library/react";
-import { Occurence } from "../src/components/OccurencesTable";
+import { Occurrence } from "../src/components/OccurencesTable";
 import { Technique } from "../src/components/Technique";
 import { vi } from "vitest";
 import React from "react";
 
-const fetchMockData = (mockData: { data: Occurence[] }) => {
+const fetchMockData = (mockData: { data: Occurrence[] }) => {
   return { json: () => new Promise((resolve) => resolve(mockData)) };
 };
 
@@ -47,7 +47,7 @@ describe("OccurencesTable", () => {
     await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
 
     // Assert
-    const entries = container.querySelectorAll(".occurence");
+    const entries = container.querySelectorAll(".occurrence");
     expect(entries).toHaveLength(3);
   });
 });
