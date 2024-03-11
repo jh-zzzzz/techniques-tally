@@ -3,15 +3,15 @@ package dev.salt.techniquetally;
 public class Occurrence {
     private long id;
     private String date;
-    private String nameOfPlayer;
+    private String athlete;
     private String game;
     private String timestamp;
     private String videoLink;
 
-    public Occurrence(long id, String date, String nameOfPlayer, String game, String timestamp, String videoLink) {
+    public Occurrence(long id, String date, String athlete, String game, String timestamp, String videoLink) {
         this.id = id;
         this.date = date;
-        this.nameOfPlayer = nameOfPlayer;
+        this.athlete = athlete;
         this.game = game;
         this.timestamp = timestamp;
         this.videoLink = videoLink;
@@ -25,8 +25,8 @@ public class Occurrence {
         return date;
     }
 
-    public String getNameOfPlayer() {
-        return nameOfPlayer;
+    public String getAthlete() {
+        return athlete;
     }
 
     public String getGame() {
