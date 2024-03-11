@@ -1,17 +1,15 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Nav } from "./components/Nav";
-import { TechniquesTable } from "./components/TechniquesTable";
+import { Home } from "./components/Home";
 
 function App() {
   return (
     <>
       <Nav />
-      <select>
-        <option>Football</option>
-        <option>BJJ</option>
-      </select>
-      <button>Add new technique</button>
-      <TechniquesTable />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+      </Routes>
     </>
   );
 }
