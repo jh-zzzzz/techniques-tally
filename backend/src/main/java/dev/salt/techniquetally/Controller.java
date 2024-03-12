@@ -26,25 +26,9 @@ public class Controller {
     @GetMapping("/sports/{sport}/techniques")
     public ResponseEntity<TechniquesResponseDTO> getTechniquesForSport(@PathVariable String sport) {
         return ResponseEntity.ok(new TechniquesResponseDTO(techniqueDb.findTechniquesBySport_NameIgnoreCase(sport)));
-//        if (sport.equalsIgnoreCase("football")) {
-//            return ResponseEntity.ok(new TechniquesResponseDTO(List.of(
-//                    new Technique("Step over", 20_000_000),
-//                    new Technique("Nutmeg", 11_000))));
-//        }
-//        if (sport.equalsIgnoreCase("basketball")) {
-//            return ResponseEntity.ok(new TechniquesResponseDTO(List.of(
-//                    new Technique("Cross over", 19_000_000),
-//                    new Technique("sth else", 10_000))));
-//        }
-//        if (sport.equalsIgnoreCase("bjj")) {
-//            return ResponseEntity.ok(new TechniquesResponseDTO(List.of(
-//                    new Technique("bow and arrow choke", 30_000),
-//                    new Technique("armbar", 29_000))));
-//        }
-//        return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/{sport}/{technique}/occurrences")
+    @GetMapping("/sports/{sport}/techniques/{technique}/occurrences")
     public ResponseEntity<OccurencesResponseDTO> getOccurrences(@PathVariable String sport,
                                                                 @PathVariable String technique) {
         return ResponseEntity.ok(new OccurencesResponseDTO(List.of(
