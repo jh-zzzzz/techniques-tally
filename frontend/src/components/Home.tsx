@@ -19,10 +19,6 @@ export const Home = ({ sports, sport, setSport }: HomeProps) => {
     setSport(e.currentTarget.value);
   };
 
-  //   useEffect(() => {
-  //     setSport(sports[0]);
-  //   }, []);
-
   return (
     <>
       <select onChange={handleOnChange}>

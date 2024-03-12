@@ -16,10 +16,9 @@ function App() {
   };
 
   useEffect(() => {
-    const data = fetchOnRender();
-    data.then((tja) => {
-      setSports(tja);
-      setSport(tja[0].toLowerCase());
+    fetchOnRender().then((data) => {
+      setSports(data);
+      setSport(data[0].toLowerCase());
     });
   }, []);
 
