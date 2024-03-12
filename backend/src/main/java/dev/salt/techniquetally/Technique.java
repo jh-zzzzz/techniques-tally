@@ -19,7 +19,7 @@ public class Technique {
     @ManyToOne(optional = false)
     @JoinColumn(name = "sport_key", referencedColumnName = "name")
     private Sport sport;
-    @OneToMany
+    @OneToMany(mappedBy = "technique")
     private List<Occurrence> occurrences;
 
     public Technique() {
@@ -36,5 +36,9 @@ public class Technique {
 
     public long getTotalNumberOfOccurrences() {
         return totalNumberOfOccurrences;
+    }
+
+    public List<Occurrence> getOccurrences() {
+        return occurrences;
     }
 }

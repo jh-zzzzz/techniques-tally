@@ -14,10 +14,14 @@ public class Sport {
     private long id;
     @Column(nullable = false, unique = true)
     private String name;
-    @OneToMany
+    @OneToMany(mappedBy = "sport")
     private List<Technique> techniques;
 
     public String getName() {
         return name;
+    }
+
+    public List<Technique> getTechniques() {
+        return techniques;
     }
 }

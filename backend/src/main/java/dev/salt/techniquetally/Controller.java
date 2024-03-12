@@ -15,6 +15,8 @@ public class Controller {
     private SportDb sportDb;
     @Autowired
     private TechniqueDb techniqueDb;
+    @Autowired
+    private OccurrenceDb occurrenceDb;
 
     @GetMapping("/sports")
     public ResponseEntity<String[]> getSports() {
@@ -31,11 +33,13 @@ public class Controller {
     @GetMapping("/sports/{sport}/techniques/{technique}/occurrences")
     public ResponseEntity<OccurencesResponseDTO> getOccurrences(@PathVariable String sport,
                                                                 @PathVariable String technique) {
-        return ResponseEntity.ok(new OccurencesResponseDTO(List.of(
-                new Occurrence(1L, "2012", "Messi", "Barca vs. Real Madrid",
-                        "56'", null),
-                new Occurrence(2L, "2011", "Ronaldo", "Real Madrid vs. Barca",
-                        "40'", null))
-        ));
+        var res = techniqueDb.findTechniqueByNameIgnoreCaseAndSport_NameIgnoreCase(
+                transformPathVariable(technique), transformPathVariable(sport)
+        );
+        return ResponseEntity.ok(new OccurencesResponseDTO(res.getOccurrences()));
+    }
+
+    private String transformPathVariable(String s) {
+        return s.replaceAll("-", " ");
     }
 }
