@@ -6,6 +6,10 @@ spring:
     url: ${HACKWEEK_DATASOURCE}
     username: ${DB_USER}
     password: ${DB_PW}
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
 
 logging:
   level:
