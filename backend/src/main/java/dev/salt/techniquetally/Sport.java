@@ -17,4 +17,7 @@ public class Sport {
     @OneToMany
     private List<Technique> techniques;
 
+    public String getName() {
+        return name;
+    }
 }

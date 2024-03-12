@@ -1,5 +1,6 @@
 package dev.salt.techniquetally;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +11,12 @@ import java.util.List;
 @CrossOrigin
 public class Controller {
 
+    @Autowired
+    private SportDb sportDb;
+
     @GetMapping("/sports")
     public ResponseEntity<String[]> getSports() {
-        return ResponseEntity.ok(new String[]{"Football", "BJJ", "Basketball"});
+        return ResponseEntity.ok(sportDb.findAll().stream().map(Sport::getName).toArray(String[]::new));
     }
 
     @GetMapping("/sports/{sport}/techniques")
