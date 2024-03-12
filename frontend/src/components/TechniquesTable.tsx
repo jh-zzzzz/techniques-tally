@@ -22,6 +22,10 @@ export const TechniquesTable = ({ sport }: TechniquesTableProps) => {
     }
   }, [sport]);
 
+  const generateLink = (technique: Technique) => {
+    return `${sport}/techniques/${technique.name.toLowerCase().replace(/ /g, "-")}`;
+  };
+
   return (
     <>
       <table>
@@ -35,27 +39,11 @@ export const TechniquesTable = ({ sport }: TechniquesTableProps) => {
           {techniques.map((technique) => (
             <tr key={technique.name}>
               <td>
-                <Link
-                  to={`${sport}/techniques/${technique.name.toLowerCase()}`}
-                >
-                  {technique.name}
-                </Link>
+                <Link to={generateLink(technique)}>{technique.name}</Link>
               </td>
               <td>{technique.totalNumberOfOccurrences}</td>
             </tr>
           ))}
-          {/* <tr>
-            <td>
-              <Link to={`${sport}/techniques/nutmeg`}>Nutmeg</Link>
-            </td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>
-              <Link to={`${sport}/techniques/step-over`}>Step over</Link>
-            </td>
-            <td>1</td>
-          </tr> */}
         </tbody>
       </table>
     </>
