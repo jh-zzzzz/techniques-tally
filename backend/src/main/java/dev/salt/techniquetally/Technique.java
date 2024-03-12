@@ -7,7 +7,7 @@ import java.util.List;
 @Entity
 @Table(
         name = "techniques",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"name", "sport_id"})
+        uniqueConstraints = @UniqueConstraint(columnNames = {"name", "sport_key"})
 )
 public class Technique {
 
@@ -17,6 +17,7 @@ public class Technique {
     private String name;
     private long totalNumberOfOccurrences;
     @ManyToOne(optional = false)
+    @JoinColumn(name = "sport_key", referencedColumnName = "name")
     private Sport sport;
     @OneToMany
     private List<Occurrence> occurrences;

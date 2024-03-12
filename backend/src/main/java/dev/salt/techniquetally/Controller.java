@@ -13,30 +13,35 @@ public class Controller {
 
     @Autowired
     private SportDb sportDb;
+    @Autowired
+    private TechniqueDb techniqueDb;
 
     @GetMapping("/sports")
     public ResponseEntity<String[]> getSports() {
-        return ResponseEntity.ok(sportDb.findAll().stream().map(Sport::getName).toArray(String[]::new));
+        return ResponseEntity.ok(sportDb.findAll().stream()
+                .map(Sport::getName)
+                .toArray(String[]::new));
     }
 
     @GetMapping("/sports/{sport}/techniques")
     public ResponseEntity<TechniquesResponseDTO> getTechniquesForSport(@PathVariable String sport) {
-        if (sport.equalsIgnoreCase("football")) {
-            return ResponseEntity.ok(new TechniquesResponseDTO(List.of(
-                    new Technique("Step over", 20_000_000),
-                    new Technique("Nutmeg", 11_000))));
-        }
-        if (sport.equalsIgnoreCase("basketball")) {
-            return ResponseEntity.ok(new TechniquesResponseDTO(List.of(
-                    new Technique("Cross over", 19_000_000),
-                    new Technique("sth else", 10_000))));
-        }
-        if (sport.equalsIgnoreCase("bjj")) {
-            return ResponseEntity.ok(new TechniquesResponseDTO(List.of(
-                    new Technique("bow and arrow choke", 30_000),
-                    new Technique("armbar", 29_000))));
-        }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(new TechniquesResponseDTO(techniqueDb.findTechniquesBySport_NameIgnoreCase(sport)));
+//        if (sport.equalsIgnoreCase("football")) {
+//            return ResponseEntity.ok(new TechniquesResponseDTO(List.of(
+//                    new Technique("Step over", 20_000_000),
+//                    new Technique("Nutmeg", 11_000))));
+//        }
+//        if (sport.equalsIgnoreCase("basketball")) {
+//            return ResponseEntity.ok(new TechniquesResponseDTO(List.of(
+//                    new Technique("Cross over", 19_000_000),
+//                    new Technique("sth else", 10_000))));
+//        }
+//        if (sport.equalsIgnoreCase("bjj")) {
+//            return ResponseEntity.ok(new TechniquesResponseDTO(List.of(
+//                    new Technique("bow and arrow choke", 30_000),
+//                    new Technique("armbar", 29_000))));
+//        }
+//        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/{sport}/{technique}/occurrences")

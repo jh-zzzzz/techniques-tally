@@ -2,11 +2,12 @@ INSERT INTO sports (name)
 VALUES
     ('Football'),
     ('BJJ'),
-    ('Basketball');
+    ('Basketball'),
+    ('Hockey');
 
-INSERT INTO techniques (sport_id, total_number_of_occurrences, name)
+INSERT INTO techniques (sport_key, total_number_of_occurrences, name)
 VALUES
-    (1, 0, 'Step over'), -- football
-    (1, 0, 'Nutmeg'),
-    (2, 0, 'Bow and arrow choke'), -- bjj
-    (3, 0, 'Cross over'); -- basketball
+    ('Football', 0, 'Step over'), -- football
+    ('Football', 0, 'Nutmeg'),
+    ('BJJ', 0, 'Bow and arrow choke'), -- bjj
+    ('Basketball', 0, 'Cross over'); -- basketball
