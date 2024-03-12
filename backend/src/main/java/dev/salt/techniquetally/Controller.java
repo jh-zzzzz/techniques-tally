@@ -1,6 +1,5 @@
 package dev.salt.techniquetally;
 
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,9 +36,9 @@ public class Controller {
     }
 
     @GetMapping("/{sport}/{technique}/occurrences")
-    public ResponseEntity<OccurencecResponseDTO> getOccurrences(@PathVariable String sport,
+    public ResponseEntity<OccurencesResponseDTO> getOccurrences(@PathVariable String sport,
                                                                 @PathVariable String technique) {
-        return ResponseEntity.ok(new OccurencecResponseDTO(List.of(
+        return ResponseEntity.ok(new OccurencesResponseDTO(List.of(
                 new Occurrence(1L, "2012", "Messi", "Barca vs. Real Madrid",
                         "56'", null),
                 new Occurrence(2L, "2011", "Ronaldo", "Real Madrid vs. Barca",

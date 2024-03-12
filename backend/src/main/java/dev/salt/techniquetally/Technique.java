@@ -2,8 +2,13 @@ package dev.salt.techniquetally;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-@Table(name = "techniques")
+@Table(
+        name = "techniques",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"name", "sport_id"})
+)
 public class Technique {
 
     @Id
@@ -13,6 +18,8 @@ public class Technique {
     private long totalNumberOfOccurrences;
     @ManyToOne(optional = false)
     private Sport sport;
+    @OneToMany
+    private List<Occurrence> occurrences;
 
     public Technique() {
     }

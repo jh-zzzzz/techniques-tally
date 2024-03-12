@@ -1,12 +1,29 @@
 package dev.salt.techniquetally;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "occurrences")
 public class Occurrence {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(nullable = false)
     private String date;
+    @Column(nullable = false)
     private String athlete;
+    @Column(nullable = false)
     private String game;
+    @Column(nullable = false)
     private String timestamp;
+    @Column(nullable = true)
     private String videoLink;
+    @ManyToOne(optional = false)
+    private Technique technique;
+
+    public Occurrence() {
+    }
 
     public Occurrence(long id, String date, String athlete, String game, String timestamp, String videoLink) {
         this.id = id;
