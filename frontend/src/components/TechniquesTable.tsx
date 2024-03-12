@@ -23,7 +23,7 @@ export const TechniquesTable = ({ sport }: TechniquesTableProps) => {
   }, [sport]);
 
   const generateLink = (technique: Technique) => {
-    return `${sport}/techniques/${technique.name.toLowerCase().replace(/ /g, "-")}`;
+    return `${sport}/${technique.name.toLowerCase().replace(/ /g, "-")}`;
   };
 
   return (

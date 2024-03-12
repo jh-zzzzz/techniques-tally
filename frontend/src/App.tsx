@@ -30,7 +30,7 @@ function App() {
           path="/"
           element={<Home sports={sports} sport={sport} setSport={setSport} />}
         ></Route>
-        <Route path=":sport/techniques/:technique" element={<Technique />} />
+        <Route path=":sport/:technique" element={<Technique />} />
       </Routes>
     </>
   );
