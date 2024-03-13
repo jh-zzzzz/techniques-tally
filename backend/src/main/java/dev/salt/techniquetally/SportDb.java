@@ -1,8 +1,9 @@
 package dev.salt.techniquetally;
 
+import dev.salt.techniquetally.model.Sport;
 import org.springframework.data.repository.ListCrudRepository;
 
-import java.util.List;
-
 public interface SportDb extends ListCrudRepository<Sport, Long> {
+
+    Sport findSportByNameIgnoreCase(String name);
 }

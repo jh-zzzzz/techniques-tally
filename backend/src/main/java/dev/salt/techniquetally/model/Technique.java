@@ -1,5 +1,7 @@
-package dev.salt.techniquetally;
+package dev.salt.techniquetally.model;
 
+import dev.salt.techniquetally.model.Occurrence;
+import dev.salt.techniquetally.model.Sport;
 import jakarta.persistence.*;
 
 import java.util.List;

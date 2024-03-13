@@ -1,4 +1,4 @@
-package dev.salt.techniquetally;
+package dev.salt.techniquetally.model;
 
 import jakarta.persistence.*;
 

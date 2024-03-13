@@ -1,5 +1,6 @@
 package dev.salt.techniquetally;
 
+import dev.salt.techniquetally.model.Technique;
 import org.springframework.data.repository.ListCrudRepository;
 
 import java.util.List;

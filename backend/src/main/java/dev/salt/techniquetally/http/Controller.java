@@ -1,10 +1,17 @@
-package dev.salt.techniquetally;
+package dev.salt.techniquetally.http;
 
+import dev.salt.techniquetally.*;
+import dev.salt.techniquetally.http.dto.OccurencesResponseDTO;
+import dev.salt.techniquetally.http.dto.SportResponseDTO;
+import dev.salt.techniquetally.http.dto.TechniquesResponseDTO;
+import dev.salt.techniquetally.model.Sport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/api")
@@ -23,6 +30,26 @@ public class Controller {
         return ResponseEntity.ok(sportDb.findAll().stream()
                 .map(Sport::getName)
                 .toArray(String[]::new));
+    }
+
+    @PostMapping("/sports")
+    public ResponseEntity<Void> addSport(@RequestBody String sport) {
+        try {
+            var created = sportDb.save(new Sport(sport));
+            System.out.println("created = " + created.getName() + " " + created);
+            return ResponseEntity.created(URI.create("/api/sports/" + created.getName().toLowerCase())).build();
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatusCode.valueOf(409)).build();
+        }
+    }
+
+    @GetMapping("/sports/{sport}")
+    public ResponseEntity<SportResponseDTO> getSport(@PathVariable String sport) {
+        var retrievedSport = sportDb.findSportByNameIgnoreCase(sport);
+        if (retrievedSport == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(new SportResponseDTO(retrievedSport.getId(), retrievedSport.getName()));
     }
 
     @GetMapping("/sports/{sport}/techniques")
