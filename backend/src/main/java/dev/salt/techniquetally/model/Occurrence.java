@@ -69,4 +69,12 @@ public class Occurrence {
     public String getVideoLink() {
         return videoLink;
     }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public List<Edit> getEdits() {
+        return edits;
+    }
 }

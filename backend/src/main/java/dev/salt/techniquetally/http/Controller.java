@@ -103,10 +103,10 @@ public class Controller {
     }
 
     @GetMapping("/sports/{sport}/techniques/{technique}/occurrences/{id}")
-    public ResponseEntity<OccurrenceResponseDTO> getOccurrenceDetails(@PathVariable("sport") String sportName,
+    public ResponseEntity<Occurrence> getOccurrenceDetails(@PathVariable("sport") String sportName,
                                                                       @PathVariable("technique") String techniqueName,
                                                                       @PathVariable String id) {
-        return null;
+        return ResponseEntity.ok(occurrenceDb.findById(id).get());
     }
 
     private String transformPathVariable(String s) {
