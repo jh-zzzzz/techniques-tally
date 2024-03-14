@@ -27,9 +27,9 @@ public class Technique {
     public Technique() {
     }
 
-    public Technique(String name, long totalNumberOfOccurrences) {
+    public Technique(String name, Sport sport) {
         this.name = name;
-        this.totalNumberOfOccurrences = totalNumberOfOccurrences;
+        this.sport = sport;
     }
 
     public String getName() {

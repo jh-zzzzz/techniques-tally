@@ -5,6 +5,7 @@ import dev.salt.techniquetally.http.dto.OccurencesResponseDTO;
 import dev.salt.techniquetally.http.dto.SportResponseDTO;
 import dev.salt.techniquetally.http.dto.TechniquesResponseDTO;
 import dev.salt.techniquetally.model.Sport;
+import dev.salt.techniquetally.model.Technique;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatusCode;
@@ -36,8 +37,7 @@ public class Controller {
     public ResponseEntity<Void> addSport(@RequestBody String sport) {
         try {
             var created = sportDb.save(new Sport(sport));
-            System.out.println("created = " + created.getName() + " " + created);
-            return ResponseEntity.created(URI.create("/api/sports/" + created.getName().toLowerCase())).build();
+            return ResponseEntity.created(URI.create("/api/sports/" + nameToUri(created.getName()))).build();
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(HttpStatusCode.valueOf(409)).build();
         }
@@ -57,6 +57,20 @@ public class Controller {
         return ResponseEntity.ok(new TechniquesResponseDTO(techniqueDb.findTechniquesBySport_NameIgnoreCase(sport)));
     }
 
+    @PostMapping("/sports/{sport}/techniques")
+    public ResponseEntity<Void> addTechnique(@PathVariable("sport") String sportName, @RequestBody String technique) {
+        try {
+            Sport sport = sportDb.findSportByNameIgnoreCase(sportName);
+            if (sport == null) {
+                return ResponseEntity.notFound().build();
+            }
+        var returned = techniqueDb.save(new Technique(technique, sport));
+        return ResponseEntity.created(URI.create("/api/sports/" + sportName + "/techniques/" + nameToUri(returned.getName()))).build();
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatusCode.valueOf(409)).build();
+        }
+    }
+
     @GetMapping("/sports/{sport}/techniques/{technique}/occurrences")
     public ResponseEntity<OccurencesResponseDTO> getOccurrences(@PathVariable String sport,
                                                                 @PathVariable String technique) {
@@ -68,5 +82,9 @@ public class Controller {
 
     private String transformPathVariable(String s) {
         return s.replaceAll("-", " ");
+    }
+
+    private String nameToUri(String s) {
+        return s.toLowerCase().replaceAll(" ", "-");
     }
 }
