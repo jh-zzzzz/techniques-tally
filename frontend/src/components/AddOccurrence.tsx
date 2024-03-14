@@ -1,5 +1,5 @@
 import { FormEvent } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { postOccurrence } from "../http";
 
 type AddOccurrenceEvent = FormEvent<HTMLFormElement> & {
@@ -32,6 +32,13 @@ export const AddOccurrence = () => {
   };
   return (
     <>
+      <p>
+        <Link to="/">Home</Link> {`> ${params.sport} > `}{" "}
+        <Link
+          to={`/${params.sport}/${params.technique}`}
+        >{`${params.technique}`}</Link>
+        {" > Add new occurrence"}
+      </p>
       <h3>add occurrence for:</h3>
       <h2>
         {params.technique} ({params.sport})

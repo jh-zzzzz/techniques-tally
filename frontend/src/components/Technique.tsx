@@ -18,6 +18,9 @@ export const Technique = () => {
 
   return (
     <>
+      <p>
+        <Link to="/">Home</Link> {`> ${params.sport} > ${params.technique}`}
+      </p>
       <h2>{params.technique}</h2>
       <Link to={`add-occurrence`}>add new occurrence</Link>
       <OccurencesTable occurences={occurrences} />

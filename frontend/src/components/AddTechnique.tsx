@@ -1,5 +1,5 @@
 import { FormEvent } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { postTechnique } from "../http";
 
 type AddTechniqueEvent = FormEvent<HTMLFormElement> & {
@@ -17,6 +17,9 @@ export const AddTechnique = () => {
   };
   return (
     <>
+      <p>
+        <Link to="/">Home</Link> {`> ${params.sport} > Add new technique`}
+      </p>
       <h2>{params.sport}</h2>
       <form onSubmit={handleOnSubmit}>
         <label htmlFor="techniqueName">What's the name of the technique?</label>
