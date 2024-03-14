@@ -7,8 +7,8 @@ import jakarta.persistence.*;
 public class Occurrence {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     @Column(nullable = false)
     private String date;
     @Column(nullable = false)
@@ -25,16 +25,16 @@ public class Occurrence {
     public Occurrence() {
     }
 
-    public Occurrence(long id, String date, String athlete, String game, String timestamp, String videoLink) {
-        this.id = id;
+    public Occurrence(String date, String athlete, String game, String timestamp, String videoLink, Technique technique) {
         this.date = date;
         this.athlete = athlete;
         this.game = game;
         this.timestamp = timestamp;
         this.videoLink = videoLink;
+        this.technique = technique;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 

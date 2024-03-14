@@ -2,8 +2,10 @@ package dev.salt.techniquetally.http;
 
 import dev.salt.techniquetally.*;
 import dev.salt.techniquetally.http.dto.OccurencesResponseDTO;
+import dev.salt.techniquetally.http.dto.OccurrenceRequestDTO;
 import dev.salt.techniquetally.http.dto.SportResponseDTO;
 import dev.salt.techniquetally.http.dto.TechniquesResponseDTO;
+import dev.salt.techniquetally.model.Occurrence;
 import dev.salt.techniquetally.model.Sport;
 import dev.salt.techniquetally.model.Technique;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,8 +66,8 @@ public class Controller {
             if (sport == null) {
                 return ResponseEntity.notFound().build();
             }
-        var returned = techniqueDb.save(new Technique(technique, sport));
-        return ResponseEntity.created(URI.create("/api/sports/" + sportName + "/techniques/" + nameToUri(returned.getName()))).build();
+            var returned = techniqueDb.save(new Technique(technique, sport));
+            return ResponseEntity.created(URI.create("/api/sports/" + sportName + "/techniques/" + nameToUri(returned.getName()))).build();
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(HttpStatusCode.valueOf(409)).build();
         }
@@ -77,7 +79,23 @@ public class Controller {
         var res = techniqueDb.findTechniqueByNameIgnoreCaseAndSport_NameIgnoreCase(
                 transformPathVariable(technique), transformPathVariable(sport)
         );
+        if (res == null) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(new OccurencesResponseDTO(res.getOccurrences()));
+    }
+
+    @PostMapping("/sports/{sport}/techniques/{technique}/occurrences")
+    public ResponseEntity<Void> addOccurrence(@PathVariable("sport") String sportName,
+                                              @PathVariable("technique") String techniqueName,
+                                              @RequestBody OccurrenceRequestDTO body) {
+        Technique technique = techniqueDb.findTechniqueByNameIgnoreCaseAndSport_NameIgnoreCase(
+                transformPathVariable(techniqueName), transformPathVariable(sportName));
+        if (technique == null) {
+            return ResponseEntity.notFound().build();
+        }
+        Occurrence created = occurrenceDb.save(body.toOccurrence(technique));
+        return ResponseEntity.created(URI.create("/api/sports/" + sportName + "/techniques/" + techniqueName + "/occurrences/" + created.getId())).build();
     }
 
     private String transformPathVariable(String s) {

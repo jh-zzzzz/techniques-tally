@@ -14,8 +14,8 @@ VALUES
     ('BJJ', 0, 'Bow and arrow choke'),
     ('Basketball', 0, 'Cross over');
 
-INSERT INTO occurrences
-    (date, athlete, game, timestamp, technique_id)
-VALUES
-    ('2011', 'Messi', 'Barca vs. Real Madrid', '56''', 1),
-    ('2012', 'Ronaldo', 'Barca vs. Real Madrid', '40''', 1);
+-- INSERT INTO occurrences
+--     (date, athlete, game, timestamp, technique_id)
+-- VALUES
+--     ('2011', 'Messi', 'Barca vs. Real Madrid', '56''', 1),
+--     ('2012', 'Ronaldo', 'Barca vs. Real Madrid', '40''', 1);
