@@ -105,7 +105,11 @@ public class Controller {
 
     @GetMapping("/occurrences/{id}")
     public ResponseEntity<Occurrence> getOccurrenceDetails(@PathVariable String id) {
-        return ResponseEntity.ok(occurrenceDb.findById(id).get());
+        try {
+            return ResponseEntity.ok(occurrenceDb.findById(id).orElseThrow());
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PatchMapping("/occurrences/{id}")

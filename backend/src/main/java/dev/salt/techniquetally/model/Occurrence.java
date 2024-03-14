@@ -12,6 +12,8 @@ import java.util.List;
         uniqueConstraints = @UniqueConstraint(columnNames = {"date", "athlete", "game", "timestamp"}))
 public class Occurrence {
 
+    private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -33,7 +35,7 @@ public class Occurrence {
     private List<Edit> edits;
 
     public Occurrence() {
-        this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        this.createdAt = LocalDateTime.now().format(dtf);
     }
 
     public Occurrence(String date, String athlete, String game, String timestamp, String videoLink, Technique technique) {

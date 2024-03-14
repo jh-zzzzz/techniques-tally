@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getOccurrence } from "../http";
+import { getOccurrence, updateOccurrence } from "../http";
 
 type EditOccurrenceEvent = FormEvent<HTMLFormElement> & {
   target: {
@@ -10,18 +10,30 @@ type EditOccurrenceEvent = FormEvent<HTMLFormElement> & {
 };
 
 export const EditOccurrence = () => {
-  const params = useParams();
+  const { id } = useParams();
   const [occurrence, setOccurrence] = useState();
 
   useEffect(() => {
-    getOccurrence(params.sport!, params.technique!, params.id!)
+    getOccurrence(id!)
       .then((resp) => resp.json())
       .then((data) => setOccurrence(data))
       .then(() => console.log(occurrence))
       .catch(() => console.log("couldnt fetch occurrence"));
   }, []);
 
-  const handleOnSubmit = () => {};
+  const handleOnSubmit = (e: EditOccurrenceEvent) => {
+    e.preventDefault();
+    const body = {
+      timestamp: e.target.timestamp.value,
+      videoLink: e.target.videoLink.value,
+    };
+    updateOccurrence(id!, body)
+      .then((resp) => resp.json())
+      .then((data) => setOccurrence(data))
+      .catch(() =>
+        console.log("failed to fetch when sending patch request for occurence"),
+      );
+  };
 
   return (
     occurrence && (
@@ -81,6 +93,10 @@ export const EditOccurrence = () => {
                 <td>{edit.editedAt}</td>
               </tr>
             ))}
+            <tr>
+              <td>{occurrence.createdAt}</td>
+              <td>(created)</td>
+            </tr>
           </tbody>
         </table>
       </>

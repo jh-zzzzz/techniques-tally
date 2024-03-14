@@ -9,6 +9,8 @@ import java.time.format.DateTimeFormatter;
 @Table(name = "edits")
 public class Edit {
 
+    private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -18,7 +20,7 @@ public class Edit {
     Occurrence occurrence;
 
     public Edit() {
-        this.editedAt = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        this.editedAt = LocalDateTime.now().format(dtf);
     }
 
     public Edit(Occurrence occurrence) {
