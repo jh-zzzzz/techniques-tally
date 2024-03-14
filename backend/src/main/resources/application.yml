@@ -1,0 +1,21 @@
+server:
+  port: 1523
+
+spring:
+  datasource:
+    url: ${HACKWEEK_DATASOURCE}
+    username: ${DB_USER}
+    password: ${DB_PW}
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
+  sql:
+    init:
+      platform: postgresql
+      mode: always
+
+logging:
+  level:
+    org:
+      springframework: info

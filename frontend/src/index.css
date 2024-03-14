@@ -1,0 +1,31 @@
+html {
+  padding: 3%;
+}
+
+table {
+  max-width: 100%;
+  table-layout: fixed;
+  font-size: 7px;
+  max-width: 660px;
+}
+
+input[type="submit"],
+input[type="button"] {
+  margin-left: 10px;
+  max-width: 160px;
+  width: 30%;
+}
+
+input[type="button"] {
+  background-color: gray;
+}
+
+input[type="submit"].edit {
+  background-color: indianred;
+}
+
+@media  screen and (width >= 700px) {
+  table {
+    font-size: 14px;
+  }
+}
