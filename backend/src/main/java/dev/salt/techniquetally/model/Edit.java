@@ -20,4 +20,17 @@ public class Edit {
     public Edit() {
         this.editedAt = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }
+
+    public Edit(Occurrence occurrence) {
+        this();
+        this.setOccurrence(occurrence);
+    }
+
+    public String getEditedAt() {
+        return editedAt;
+    }
+
+    private void setOccurrence(Occurrence occurrence) {
+        this.occurrence = occurrence;
+    }
 }

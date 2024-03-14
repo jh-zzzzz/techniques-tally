@@ -38,12 +38,19 @@ export const postOccurrence = (
   );
 };
 
-export const getOccurrence = (
-  sportName: string,
-  techniqueName: string,
+export const getOccurrence = (id: string) => {
+  return fetch(`${BACKEND_BASE_URI}/occurrences/${id}`);
+};
+
+export const updateOccurrence = (
   id: string,
+  body: { timestamp: string; videoLink: string },
 ) => {
-  return fetch(
-    `${BACKEND_BASE_URI}/sports/${sportName}/techniques/${techniqueName}/occurrences/${id}`,
-  );
+  return fetch(`${BACKEND_BASE_URI}/occurrences/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
 };

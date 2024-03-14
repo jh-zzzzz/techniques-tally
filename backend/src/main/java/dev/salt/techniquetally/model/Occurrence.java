@@ -29,7 +29,7 @@ public class Occurrence {
     private String createdAt;
     @ManyToOne(optional = false)
     private Technique technique;
-    @OneToMany(mappedBy = "occurrence")
+    @OneToMany(mappedBy = "occurrence", cascade = CascadeType.ALL)
     private List<Edit> edits;
 
     public Occurrence() {
@@ -76,5 +76,22 @@ public class Occurrence {
 
     public List<Edit> getEdits() {
         return edits;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public void setVideoLink(String videoLink) {
+        this.videoLink = videoLink;
+    }
+
+    public void update(String timestamp, String videoLink) {
+        this.setTimestamp(timestamp);
+        this.setVideoLink(videoLink);
+    }
+
+    public void addEdit() {
+        this.edits.add(new Edit(this));
     }
 }

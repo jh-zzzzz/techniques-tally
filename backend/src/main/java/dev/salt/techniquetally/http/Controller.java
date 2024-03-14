@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api")
@@ -102,11 +103,23 @@ public class Controller {
         }
     }
 
-    @GetMapping("/sports/{sport}/techniques/{technique}/occurrences/{id}")
-    public ResponseEntity<Occurrence> getOccurrenceDetails(@PathVariable("sport") String sportName,
-                                                                      @PathVariable("technique") String techniqueName,
-                                                                      @PathVariable String id) {
+    @GetMapping("/occurrences/{id}")
+    public ResponseEntity<Occurrence> getOccurrenceDetails(@PathVariable String id) {
         return ResponseEntity.ok(occurrenceDb.findById(id).get());
+    }
+
+    @PatchMapping("/occurrences/{id}")
+    public ResponseEntity<Occurrence> updateOccurrence(@PathVariable String id,
+                                                 @RequestBody OccurrenceUpdateRequestDTO body) {
+        try {
+            Occurrence occurrence = occurrenceDb.findById(id).orElseThrow();
+            occurrence.update(body.timestamp(), body.videoLink());
+            occurrence.addEdit();
+            Occurrence updated = occurrenceDb.save(occurrence);
+            return ResponseEntity.ok(updated);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     private String transformPathVariable(String s) {
