@@ -32,11 +32,12 @@ export const AddOccurrence = () => {
   };
   return (
     <>
+      <h3>add occurrence for:</h3>
       <h2>
         {params.technique} ({params.sport})
       </h2>
       <form onSubmit={handleOnSubmit}>
-        <label htmlFor="date">Enter date</label>
+        <label htmlFor="date">Date</label>
         <input type="date" id="date" required />
 
         <label htmlFor="athlete">Athlete</label>
