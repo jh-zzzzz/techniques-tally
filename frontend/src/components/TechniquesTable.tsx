@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getTechniques } from "../http";
 
 type TechniquesTableProps = {
   sport: string;
@@ -15,7 +16,7 @@ export const TechniquesTable = ({ sport }: TechniquesTableProps) => {
 
   useEffect(() => {
     if (sport) {
-      fetch(`http://localhost:1523/api/sports/${sport}/techniques`)
+      getTechniques(sport)
         .then((resp) => resp.json())
         .then(({ data }) => setTechniques(data))
         .catch(() => console.error("couldnt fetch yo")); // TO DO

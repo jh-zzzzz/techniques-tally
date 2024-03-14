@@ -6,15 +6,14 @@ import { Technique } from "./components/Technique";
 import { useEffect, useState } from "react";
 import { AddTechnique } from "./components/AddTechnique";
 import { AddOccurrence } from "./components/AddOccurrence";
+import { getSports } from "./http";
 
 function App() {
   const [sports, setSports] = useState<string[]>([]);
   const [sport, setSport] = useState<string>("");
 
   const fetchOnRender = async () => {
-    return await fetch("http://localhost:1523/api/sports").then((resp) =>
-      resp.json(),
-    );
+    return await getSports().then((resp) => resp.json());
   };
 
   useEffect(() => {

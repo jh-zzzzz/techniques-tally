@@ -1,34 +1,26 @@
 import { Link, useParams } from "react-router-dom";
 import { Occurrence, OccurencesTable } from "./OccurencesTable";
 import { useEffect, useState } from "react";
+import { getOccurrences } from "../http";
 
 export const Technique = () => {
   const params = useParams();
-  const [occurences, setOccurences] = useState<Occurrence[]>([]);
-
-  const getOccurences = async () => {
-    try {
-      const resp = await fetch(
-        `http://localhost:1523/api/sports/${params.sport}/techniques/${params.technique}/occurrences`,
-      );
-      const { data } = await resp.json();
-      setOccurences(data);
-    } catch (err: any) {
-      console.log("failed to fetch"); // TO DO
-    }
-  };
+  const [occurrences, setOccurrences] = useState<Occurrence[]>([]);
 
   useEffect(() => {
-    if (occurences.length === 0) {
-      getOccurences();
+    if (occurrences.length === 0) {
+      getOccurrences(params.sport!, params.technique!)
+        .then((resp) => resp.json())
+        .then(({ data }) => setOccurrences(data))
+        .catch(() => console.error("failed to fetch"));
     }
-  }, [occurences]);
+  }, [occurrences]);
 
   return (
     <>
       <h2>{params.technique}</h2>
       <Link to={`add-occurrence`}>add new occurrence</Link>
-      <OccurencesTable occurences={occurences} />
+      <OccurencesTable occurences={occurrences} />
     </>
   );
 };

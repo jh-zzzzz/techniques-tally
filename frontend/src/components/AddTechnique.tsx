@@ -1,5 +1,6 @@
 import { FormEvent } from "react";
 import { useParams } from "react-router-dom";
+import { postTechnique } from "../http";
 
 type AddTechniqueEvent = FormEvent<HTMLFormElement> & {
   target: { techniqueName: { value: string } };
@@ -10,10 +11,7 @@ export const AddTechnique = () => {
 
   const handleOnSubmit = (e: AddTechniqueEvent) => {
     e.preventDefault();
-    fetch(`http://localhost:1523/api/sports/${params.sport}/techniques`, {
-      method: "POST",
-      body: e.target.techniqueName.value,
-    })
+    postTechnique(params.sport!, e.target.techniqueName.value)
       .then((resp) => console.log(resp.status))
       .catch(() => console.error("post req failed"));
   };
