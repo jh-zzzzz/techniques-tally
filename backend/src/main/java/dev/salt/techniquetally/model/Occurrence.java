@@ -3,7 +3,9 @@ package dev.salt.techniquetally.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "occurrences")
+@Table(
+        name = "occurrences",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"date", "athlete", "game", "timestamp"}))
 public class Occurrence {
 
     @Id

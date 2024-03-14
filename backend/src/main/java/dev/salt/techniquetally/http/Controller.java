@@ -94,8 +94,15 @@ public class Controller {
         if (technique == null) {
             return ResponseEntity.notFound().build();
         }
-        Occurrence created = occurrenceDb.save(body.toOccurrence(technique));
-        return ResponseEntity.created(URI.create("/api/sports/" + sportName + "/techniques/" + techniqueName + "/occurrences/" + created.getId())).build();
+        try {
+            Occurrence created = occurrenceDb.save(body.toOccurrence(technique));
+            technique.incrementTotalNumberOfOccurrences();
+            return ResponseEntity.created(URI.create(
+                    "/api/sports/" + sportName + "/techniques/" + techniqueName + "/occurrences/" + created.getId()
+            )).build();
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatusCode.valueOf(409)).build();
+        }
     }
 
     private String transformPathVariable(String s) {

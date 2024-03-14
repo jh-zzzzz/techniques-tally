@@ -43,4 +43,8 @@ public class Technique {
     public List<Occurrence> getOccurrences() {
         return occurrences;
     }
+
+    public void incrementTotalNumberOfOccurrences() {
+        this.totalNumberOfOccurrences++;
+    }
 }
