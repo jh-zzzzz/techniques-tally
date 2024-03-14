@@ -64,6 +64,9 @@ public class Controller {
             if (sport == null) {
                 return ResponseEntity.notFound().build();
             }
+            if (techniqueDb.findTechniqueByNameIgnoreCase(technique) != null) {
+                return ResponseEntity.status(409).build();
+            }
             var returned = techniqueDb.save(new Technique(technique, sport));
             return ResponseEntity.created(URI.create("/api/sports/" + sportName + "/techniques/" + nameToUri(returned.getName()))).build();
         } catch (DataIntegrityViolationException e) {

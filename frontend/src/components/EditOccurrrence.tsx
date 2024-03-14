@@ -1,5 +1,5 @@
-import { FormEvent, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { FormEvent, MouseEventHandler, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getOccurrence, updateOccurrence } from "../http";
 
 type EditOccurrenceEvent = FormEvent<HTMLFormElement> & {
@@ -12,6 +12,7 @@ type EditOccurrenceEvent = FormEvent<HTMLFormElement> & {
 export const EditOccurrence = () => {
   const { sport, technique, id } = useParams();
   const [occurrence, setOccurrence] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getOccurrence(id!)
@@ -32,6 +33,11 @@ export const EditOccurrence = () => {
       .catch(() =>
         console.log("failed to fetch when sending patch request for occurence"),
       );
+  };
+
+  const cancel: MouseEventHandler<HTMLInputElement> = (e) => {
+    e.preventDefault();
+    navigate(`/${sport}/${technique}`);
   };
 
   return (
@@ -85,7 +91,7 @@ export const EditOccurrence = () => {
             />
 
             <input type="submit" value="Edit" className="edit" />
-            <input type="button" value="Cancel" />
+            <input type="button" value="Cancel" onClick={cancel} />
           </form>
           <table>
             <thead>

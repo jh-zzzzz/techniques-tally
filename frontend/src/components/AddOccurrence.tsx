@@ -1,5 +1,5 @@
-import { FormEvent } from "react";
-import { Link, useParams } from "react-router-dom";
+import { FormEvent, MouseEventHandler } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { postOccurrence } from "../http";
 
 type AddOccurrenceEvent = FormEvent<HTMLFormElement> & {
@@ -14,6 +14,7 @@ type AddOccurrenceEvent = FormEvent<HTMLFormElement> & {
 
 export const AddOccurrence = () => {
   const params = useParams();
+  const navigate = useNavigate();
 
   const handleOnSubmit = (e: AddOccurrenceEvent) => {
     e.preventDefault();
@@ -30,6 +31,12 @@ export const AddOccurrence = () => {
       .then((resp) => console.log(resp.status))
       .catch(() => console.error("post req failed"));
   };
+
+  const cancel: MouseEventHandler<HTMLInputElement> = (e) => {
+    e.preventDefault();
+    navigate(`/${params.sport}/${params.technique}`);
+  };
+
   return (
     <>
       <p>
@@ -60,6 +67,7 @@ export const AddOccurrence = () => {
         <input type="url" id="videoLink" />
 
         <input type="submit" />
+        <input type="button" value="Cancel" onClick={cancel} />
       </form>
     </>
   );

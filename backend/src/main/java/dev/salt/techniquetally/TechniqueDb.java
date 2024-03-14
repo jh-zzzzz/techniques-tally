@@ -9,4 +9,5 @@ public interface TechniqueDb extends ListCrudRepository<Technique, Long> {
 
     List<Technique> findTechniquesBySport_NameIgnoreCase(String name);
     Technique findTechniqueByNameIgnoreCaseAndSport_NameIgnoreCase(String name, String sportName);
+    Technique findTechniqueByNameIgnoreCase(String name);
 }

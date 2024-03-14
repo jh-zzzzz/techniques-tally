@@ -4,7 +4,8 @@ VALUES
     ('Football'),
     ('BJJ'),
     ('Basketball'),
-    ('Hockey');
+    ('Hockey'),
+    ('Gymnastics');
 
 INSERT INTO techniques
     (sport_key, total_number_of_occurrences, name)
