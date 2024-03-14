@@ -4,6 +4,8 @@ import { Nav } from "./components/Nav";
 import { Home } from "./components/Home";
 import { Technique } from "./components/Technique";
 import { useEffect, useState } from "react";
+import { AddTechnique } from "./components/AddTechnique";
+import { AddOccurrence } from "./components/AddOccurrence";
 
 function App() {
   const [sports, setSports] = useState<string[]>([]);
@@ -30,7 +32,12 @@ function App() {
           path="/"
           element={<Home sports={sports} sport={sport} setSport={setSport} />}
         ></Route>
-        <Route path=":sport/:technique" element={<Technique />} />
+        <Route path="/:sport/add-technique" element={<AddTechnique />} />
+        <Route path="/:sport/:technique" element={<Technique />} />
+        <Route
+          path="/:sport/:technique/add-occurrence"
+          element={<AddOccurrence />}
+        />
       </Routes>
     </>
   );

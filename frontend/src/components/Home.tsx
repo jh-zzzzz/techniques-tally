@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import { TechniquesTable } from "./TechniquesTable";
+import { Link } from "react-router-dom";
 
 type HomeProps = {
   sports: string[];
@@ -28,7 +29,7 @@ export const Home = ({ sports, sport, setSport }: HomeProps) => {
           </option>
         ))}
       </select>
-      <button>Add new technique</button>
+      <Link to={`${sport}/add-technique`}>Add new technique</Link>
       <TechniquesTable sport={sport} />
     </>
   );

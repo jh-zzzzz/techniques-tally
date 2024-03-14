@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Occurrence, OccurencesTable } from "./OccurencesTable";
 import { useEffect, useState } from "react";
 
@@ -9,7 +9,7 @@ export const Technique = () => {
   const getOccurences = async () => {
     try {
       const resp = await fetch(
-        `http://localhost:1523/api/${params.sport}/${params.technique}/occurrences`,
+        `http://localhost:1523/api/sports/${params.sport}/techniques/${params.technique}/occurrences`,
       );
       const { data } = await resp.json();
       setOccurences(data);
@@ -27,6 +27,7 @@ export const Technique = () => {
   return (
     <>
       <h2>{params.technique}</h2>
+      <Link to={`add-occurrence`}>add new occurrence</Link>
       <OccurencesTable occurences={occurences} />
       <p>
         sport: {params.sport} <br />
