@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { AddTechnique } from "./components/AddTechnique";
 import { AddOccurrence } from "./components/AddOccurrence";
 import { getSports } from "./http";
+import { EditOccurrence } from "./components/EditOccurrrence";
 
 function App() {
   const [sports, setSports] = useState<string[]>([]);
@@ -33,6 +34,10 @@ function App() {
         ></Route>
         <Route path="/:sport/add-technique" element={<AddTechnique />} />
         <Route path="/:sport/:technique" element={<Technique />} />
+        <Route
+          path="/:sport/:technique/occurrence/:id"
+          element={<EditOccurrence />}
+        />
         <Route
           path="/:sport/:technique/add-occurrence"
           element={<AddOccurrence />}

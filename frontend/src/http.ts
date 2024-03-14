@@ -37,3 +37,13 @@ export const postOccurrence = (
     },
   );
 };
+
+export const getOccurrence = (
+  sportName: string,
+  techniqueName: string,
+  id: string,
+) => {
+  return fetch(
+    `${BACKEND_BASE_URI}/sports/${sportName}/techniques/${techniqueName}/occurrences/${id}`,
+  );
+};

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export type Occurrence = {
   id: string;
   date: string;
@@ -22,6 +24,7 @@ export const OccurencesTable = ({ occurences }: OccurrenceTableProps) => {
             <th>Game</th>
             <th>Timestamp</th>
             <th>Video link</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -32,6 +35,9 @@ export const OccurencesTable = ({ occurences }: OccurrenceTableProps) => {
               <td>{occurence.game}</td>
               <td>{occurence.timestamp}</td>
               <td>{occurence.video_link}</td>
+              <td>
+                <Link to={`occurrence/${occurence.id}`}>Edit entry</Link>
+              </td>
             </tr>
           ))}
         </tbody>
