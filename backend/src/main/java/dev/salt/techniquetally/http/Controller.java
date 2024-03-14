@@ -1,10 +1,7 @@
 package dev.salt.techniquetally.http;
 
 import dev.salt.techniquetally.*;
-import dev.salt.techniquetally.http.dto.OccurencesResponseDTO;
-import dev.salt.techniquetally.http.dto.OccurrenceRequestDTO;
-import dev.salt.techniquetally.http.dto.SportResponseDTO;
-import dev.salt.techniquetally.http.dto.TechniquesResponseDTO;
+import dev.salt.techniquetally.http.dto.*;
 import dev.salt.techniquetally.model.Occurrence;
 import dev.salt.techniquetally.model.Sport;
 import dev.salt.techniquetally.model.Technique;
@@ -103,6 +100,13 @@ public class Controller {
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(HttpStatusCode.valueOf(409)).build();
         }
+    }
+
+    @GetMapping("/sports/{sport}/techniques/{technique}/occurrences/{id}")
+    public ResponseEntity<OccurrenceResponseDTO> getOccurrenceDetails(@PathVariable("sport") String sportName,
+                                                                      @PathVariable("technique") String techniqueName,
+                                                                      @PathVariable String id) {
+        return null;
     }
 
     private String transformPathVariable(String s) {

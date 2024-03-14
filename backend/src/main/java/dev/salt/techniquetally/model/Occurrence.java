@@ -2,6 +2,10 @@ package dev.salt.techniquetally.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 @Entity
 @Table(
         name = "occurrences",
@@ -21,10 +25,15 @@ public class Occurrence {
     private String timestamp;
     @Column(nullable = true)
     private String videoLink;
+    @Column
+    private String createdAt;
     @ManyToOne(optional = false)
     private Technique technique;
+    @OneToMany(mappedBy = "occurrence")
+    private List<Edit> edits;
 
     public Occurrence() {
+        this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }
 
     public Occurrence(String date, String athlete, String game, String timestamp, String videoLink, Technique technique) {
@@ -34,6 +43,7 @@ public class Occurrence {
         this.timestamp = timestamp;
         this.videoLink = videoLink;
         this.technique = technique;
+        this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }
 
     public String getId() {
