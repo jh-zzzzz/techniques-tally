@@ -12,7 +12,7 @@ VALUES
     ('Football', 2, 'Step over'),
     ('Football', 0, 'Nutmeg'),
     ('BJJ', 0, 'Bow and arrow choke'),
-    ('Basketball', 0, 'Cross over');
+    ('Basketball', 0, 'Crossover');
 
 INSERT INTO occurrences
     (id, date, athlete, game, timestamp, created_at, technique_id)
