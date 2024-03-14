@@ -29,10 +29,6 @@ export const Technique = () => {
       <h2>{params.technique}</h2>
       <Link to={`add-occurrence`}>add new occurrence</Link>
       <OccurencesTable occurences={occurences} />
-      <p>
-        sport: {params.sport} <br />
-        technique: {params.technique}
-      </p>
     </>
   );
 };
