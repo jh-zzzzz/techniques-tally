@@ -1,11 +1,6 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useEffect } from "react";
 import { TechniquesTable } from "./TechniquesTable";
+import { Link } from "react-router-dom";
 
 type HomeProps = {
   sports: string[];
@@ -21,14 +16,14 @@ export const Home = ({ sports, sport, setSport }: HomeProps) => {
 
   return (
     <>
-      <select onChange={handleOnChange}>
+      <select onChange={handleOnChange} defaultValue={sport.toLowerCase()}>
         {sports.map((sport) => (
           <option key={sport} value={sport.toLowerCase()}>
             {sport}
           </option>
         ))}
       </select>
-      <button>Add new technique</button>
+      <Link to={`${sport}/add-technique`}>Add new technique</Link>
       <TechniquesTable sport={sport} />
     </>
   );

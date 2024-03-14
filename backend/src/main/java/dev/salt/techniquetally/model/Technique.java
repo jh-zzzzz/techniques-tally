@@ -1,5 +1,7 @@
-package dev.salt.techniquetally;
+package dev.salt.techniquetally.model;
 
+import dev.salt.techniquetally.model.Occurrence;
+import dev.salt.techniquetally.model.Sport;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -25,9 +27,9 @@ public class Technique {
     public Technique() {
     }
 
-    public Technique(String name, long totalNumberOfOccurrences) {
+    public Technique(String name, Sport sport) {
         this.name = name;
-        this.totalNumberOfOccurrences = totalNumberOfOccurrences;
+        this.sport = sport;
     }
 
     public String getName() {
@@ -40,5 +42,9 @@ public class Technique {
 
     public List<Occurrence> getOccurrences() {
         return occurrences;
+    }
+
+    public void incrementTotalNumberOfOccurrences() {
+        this.totalNumberOfOccurrences++;
     }
 }

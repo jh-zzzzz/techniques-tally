@@ -1,7 +1,6 @@
-package dev.salt.techniquetally;
+package dev.salt.techniquetally.model;
 
 import jakarta.persistence.*;
-import org.springframework.lang.Nullable;
 
 import java.util.List;
 
@@ -16,6 +15,18 @@ public class Sport {
     private String name;
     @OneToMany(mappedBy = "sport")
     private List<Technique> techniques;
+
+    public Sport() {
+    }
+
+
+    public Sport(String name) {
+        this.name = name;
+    }
+
+    public long getId() {
+        return id;
+    }
 
     public String getName() {
         return name;

@@ -4,15 +4,17 @@ import { Nav } from "./components/Nav";
 import { Home } from "./components/Home";
 import { Technique } from "./components/Technique";
 import { useEffect, useState } from "react";
+import { AddTechnique } from "./components/AddTechnique";
+import { AddOccurrence } from "./components/AddOccurrence";
+import { getSports } from "./http";
+import { EditOccurrence } from "./components/EditOccurrrence";
 
 function App() {
   const [sports, setSports] = useState<string[]>([]);
   const [sport, setSport] = useState<string>("");
 
   const fetchOnRender = async () => {
-    return await fetch("http://localhost:1523/api/sports").then((resp) =>
-      resp.json(),
-    );
+    return await getSports().then((resp) => resp.json());
   };
 
   useEffect(() => {
@@ -30,7 +32,16 @@ function App() {
           path="/"
           element={<Home sports={sports} sport={sport} setSport={setSport} />}
         ></Route>
-        <Route path=":sport/:technique" element={<Technique />} />
+        <Route path="/:sport/add-technique" element={<AddTechnique />} />
+        <Route path="/:sport/:technique" element={<Technique />} />
+        <Route
+          path="/:sport/:technique/occurrence/:id"
+          element={<EditOccurrence />}
+        />
+        <Route
+          path="/:sport/:technique/add-occurrence"
+          element={<AddOccurrence />}
+        />
       </Routes>
     </>
   );
