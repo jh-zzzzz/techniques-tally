@@ -77,7 +77,7 @@ export const AddTechnique = () => {
           required
           disabled={awaitingRespopnse}
         />
-        <input type="submit" disabled={awaitingRespopnse} />
+        <input type="submit" value="Submit" disabled={awaitingRespopnse} />
         <input
           type="button"
           value="Cancel"
