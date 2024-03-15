@@ -7,6 +7,7 @@ export type Occurrence = {
   game: string;
   timestamp: string;
   video_link: string;
+  createdAt: string;
 };
 
 type OccurrenceTableProps = {

@@ -54,7 +54,7 @@ public class Controller {
 
     @GetMapping("/sports/{sport}/techniques")
     public ResponseEntity<TechniquesResponseDTO> getTechniquesForSport(@PathVariable String sport) {
-        return ResponseEntity.ok(new TechniquesResponseDTO(techniqueDb.findTechniquesBySport_NameIgnoreCase(sport)));
+        return ResponseEntity.ok(new TechniquesResponseDTO(techniqueDb.findTechniquesBySport_NameIgnoreCaseOrderByTotalNumberOfOccurrencesDesc(sport)));
     }
 
     @PostMapping("/sports/{sport}/techniques")
@@ -98,6 +98,7 @@ public class Controller {
         try {
             Occurrence created = occurrenceDb.save(body.toOccurrence(technique));
             technique.incrementTotalNumberOfOccurrences();
+            techniqueDb.save(technique);
             return ResponseEntity.created(URI.create(
                     "/api/sports/" + sportName + "/techniques/" + techniqueName + "/occurrences/" + created.getId()
             )).build();

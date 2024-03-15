@@ -1,6 +1,7 @@
 import { FormEvent, MouseEventHandler, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getOccurrence, updateOccurrence } from "../http";
+import { Occurrence } from "./OccurencesTable";
 
 type EditOccurrenceEvent = FormEvent<HTMLFormElement> & {
   target: {
@@ -11,8 +12,13 @@ type EditOccurrenceEvent = FormEvent<HTMLFormElement> & {
 
 export const EditOccurrence = () => {
   const { sport, technique, id } = useParams();
-  const [occurrence, setOccurrence] = useState();
+  const [occurrence, setOccurrence] = useState<
+    Occurrence & { edits: { editedAt: string }[] }
+  >();
   const navigate = useNavigate();
+  const [awaitingRespopnse, setAwaitingResponse] = useState<boolean>(false);
+  const [userResponseText, setUserResponseText] = useState<string>("");
+  const [showDialog, setShowDialog] = useState<boolean>(false);
 
   useEffect(() => {
     getOccurrence(id!)
@@ -28,11 +34,35 @@ export const EditOccurrence = () => {
       videoLink: e.target.videoLink.value,
     };
     updateOccurrence(id!, body)
-      .then((resp) => resp.json())
-      .then((data) => setOccurrence(data))
-      .catch(() =>
-        console.log("failed to fetch when sending patch request for occurence"),
-      );
+      .then((resp) => {
+        switch (resp.status) {
+          case 200:
+            setUserResponseText("Edited ✓");
+            setShowDialog(true);
+            setTimeout(() => {
+              setShowDialog(false);
+              setAwaitingResponse(false);
+              navigate(`/${sport}/${technique}`);
+            }, 1500);
+            break;
+          default:
+            setUserResponseText(
+              `Unexpected error. HTTP status code: ${resp.status}. Try again later`,
+            );
+            setShowDialog(true);
+            setTimeout(() => {
+              setShowDialog(false);
+            }, 3000);
+            setAwaitingResponse(false);
+        }
+      })
+      .catch(() => {
+        setUserResponseText("Unable to reach server. Try again later");
+        setShowDialog(true);
+        setTimeout(() => {
+          setShowDialog(false);
+        }, 3000);
+      });
   };
 
   const cancel: MouseEventHandler<HTMLInputElement> = (e) => {
@@ -51,7 +81,7 @@ export const EditOccurrence = () => {
         <>
           <p>Editing occurrence {occurrence.id}</p>
           <form onSubmit={handleOnSubmit}>
-            <label htmlFor="date">Date</label>
+            <label htmlFor="date">Date *</label>
             <input
               type="date"
               id="date"
@@ -59,7 +89,7 @@ export const EditOccurrence = () => {
               disabled
             />
 
-            <label htmlFor="athlete">Athlete</label>
+            <label htmlFor="athlete">Athlete *</label>
             <input
               type="text"
               id="athlete"
@@ -67,7 +97,7 @@ export const EditOccurrence = () => {
               disabled
             />
 
-            <label htmlFor="game">Game</label>
+            <label htmlFor="game">Game *</label>
             <input
               type="text"
               id="game"
@@ -75,23 +105,36 @@ export const EditOccurrence = () => {
               disabled
             />
 
-            <label htmlFor="timestamp">Timestamp</label>
+            <label htmlFor="timestamp">Timestamp *</label>
             <input
               type="text"
               id="timestamp"
               defaultValue={occurrence.timestamp}
               required
+              disabled={awaitingRespopnse}
             />
 
             <label htmlFor="videoLink">Video link</label>
             <input
               type="url"
               id="videoLink"
-              defaultValue={occurrence.videoLink}
+              defaultValue={occurrence.video_link}
+              disabled={awaitingRespopnse}
             />
 
-            <input type="submit" value="Edit" className="edit" />
-            <input type="button" value="Cancel" onClick={cancel} />
+            <input
+              type="submit"
+              value="Edit"
+              className="edit"
+              disabled={awaitingRespopnse}
+            />
+            <input
+              type="button"
+              value="Cancel"
+              onClick={cancel}
+              disabled={awaitingRespopnse}
+            />
+            {showDialog && <p>{userResponseText}</p>}
           </form>
           <table>
             <thead>
@@ -100,9 +143,9 @@ export const EditOccurrence = () => {
               </tr>
             </thead>
             <tbody>
-              {occurrence.edits.map((edit) => (
-                <tr key={edit.editedAt}>
-                  <td>{edit.editedAt}</td>
+              {occurrence.edits.map(({ editedAt }) => (
+                <tr key={editedAt}>
+                  <td>{editedAt}</td>
                 </tr>
               ))}
               <tr>

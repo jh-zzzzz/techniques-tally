@@ -68,15 +68,22 @@ export const AddTechnique = () => {
       </p>
       <h2>{params.sport}</h2>
       <form onSubmit={handleOnSubmit}>
-        <label htmlFor="techniqueName">What's the name of the technique?</label>
+        <label htmlFor="techniqueName">
+          What's the name of the technique? *
+        </label>
         <input
           type="text"
           id="techniqueName"
           required
           disabled={awaitingRespopnse}
         />
-        <input type="submit" />
-        <input type="button" value="Cancel" onClick={cancel} />
+        <input type="submit" disabled={awaitingRespopnse} />
+        <input
+          type="button"
+          value="Cancel"
+          onClick={cancel}
+          disabled={awaitingRespopnse}
+        />
         {showDialog && <p>{userResponseText}</p>}
       </form>
     </>

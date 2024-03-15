@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import "./App.css";
 import { Nav } from "./components/Nav";
 import { Home } from "./components/Home";
 import { Technique } from "./components/Technique";
