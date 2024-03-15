@@ -112,7 +112,7 @@ export const AddOccurrence = () => {
         <label htmlFor="videoLink">Video link</label>
         <input type="url" id="videoLink" disabled={awaitingRespopnse} />
 
-        <input type="submit" disabled={awaitingRespopnse} />
+        <input type="submit" value="Submit" disabled={awaitingRespopnse} />
         <input
           type="button"
           value="Cancel"
