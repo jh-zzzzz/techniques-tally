@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction, useEffect } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { TechniquesTable } from "./TechniquesTable";
 import { Link } from "react-router-dom";
 
