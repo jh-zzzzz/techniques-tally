@@ -54,7 +54,7 @@ public class Controller {
 
     @GetMapping("/sports/{sport}/techniques")
     public ResponseEntity<TechniquesResponseDTO> getTechniquesForSport(@PathVariable String sport) {
-        return ResponseEntity.ok(new TechniquesResponseDTO(techniqueDb.findTechniquesBySport_NameIgnoreCase(sport)));
+        return ResponseEntity.ok(new TechniquesResponseDTO(techniqueDb.findTechniquesBySport_NameIgnoreCaseOrderByTotalNumberOfOccurrencesDesc(sport)));
     }
 
     @PostMapping("/sports/{sport}/techniques")
@@ -63,6 +63,9 @@ public class Controller {
             Sport sport = sportDb.findSportByNameIgnoreCase(sportName);
             if (sport == null) {
                 return ResponseEntity.notFound().build();
+            }
+            if (techniqueDb.findTechniqueByNameIgnoreCase(technique) != null) {
+                return ResponseEntity.status(409).build();
             }
             var returned = techniqueDb.save(new Technique(technique, sport));
             return ResponseEntity.created(URI.create("/api/sports/" + sportName + "/techniques/" + nameToUri(returned.getName()))).build();
@@ -95,6 +98,7 @@ public class Controller {
         try {
             Occurrence created = occurrenceDb.save(body.toOccurrence(technique));
             technique.incrementTotalNumberOfOccurrences();
+            techniqueDb.save(technique);
             return ResponseEntity.created(URI.create(
                     "/api/sports/" + sportName + "/techniques/" + techniqueName + "/occurrences/" + created.getId()
             )).build();

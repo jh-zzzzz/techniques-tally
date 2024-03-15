@@ -45,7 +45,7 @@ public class Occurrence {
         this.timestamp = timestamp;
         this.videoLink = videoLink;
         this.technique = technique;
-        this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        this.createdAt = LocalDateTime.now().format(dtf);
     }
 
     public String getId() {

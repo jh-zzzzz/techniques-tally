@@ -22,7 +22,7 @@ export const Technique = () => {
         <Link to="/">Home</Link> {`> ${params.sport} > ${params.technique}`}
       </p>
       <h2>{params.technique}</h2>
-      <Link to={`add-occurrence`}>add new occurrence</Link>
+      <Link to={`add-occurrence`}>Add new occurrence</Link>
       <OccurencesTable occurences={occurrences} />
     </>
   );
